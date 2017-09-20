@@ -83,18 +83,23 @@ $(function(){
 
 			try {
 				url = new URL(resultData);
+
+				location.href = resultData;
+
+				/*
 				var linkToResult = document.createElement("a");
 				linkToResult.href = url;
 				linkToResult.innerText = resultData;
 				resultContainer.appendChild(linkToResult);
 
 				resultSearchGo.href = url;
-				resultSearchGo.innerText = "Go";
+				resultSearchGo.innerText = "Abrir";
+				*/
 			} catch (e) {
 				resultContainer.innerText = resultData;
 
-				resultSearchGo.href = "https://google.com/search?q=" + encodeURIComponent(resultData);
-				resultSearchGo.innerText = "Search";
+				resultSearchGo.href = "https://www.google.com.br/search?q=" + encodeURIComponent(resultData);
+				resultSearchGo.innerText = "Pesquisar";
 			}
 
 			resultDialog.showModal();
