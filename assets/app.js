@@ -27,6 +27,7 @@ $(function(){
 		flipCameraButton.disabled = false;
 		scanCode(true);
 	});
+
 	new Clipboard("dialog button.copy");
 
 	// init QRCode Web Worker
@@ -35,7 +36,8 @@ $(function(){
 	qrcodeWorker.addEventListener("message", showResult);
 
 	var snapshotSquare;
-	function calculateSquare() {
+	function calculateSquare()
+	{
 		// get square of snapshot in the video
 		var snapshotSize = overlay.offsetWidth;
 		snapshotSquare = {
@@ -48,9 +50,12 @@ $(function(){
 		snapshotCanvas.height = snapshotSquare.size;
 	}
 
-	function scanCode(wasSuccess) {
-		setTimeout(function() {
-			if (flipCameraButton.disabled) {
+	function scanCode(wasSuccess)
+	{
+		setTimeout(function()
+		{
+			if (flipCameraButton.disabled)
+			{
 				// terminate this loop
 				loadingElement.style.display = "none";
 				return;
@@ -73,20 +78,25 @@ $(function(){
 		}, wasSuccess ? 2000 : 120);
 	}
 
-	function showResult (e) {
+	function showResult(e){
 		const resultData = e.data;
 
 		// open a dialog with the result if found
-		if (resultData !== false) {
+		if (resultData !== false)
+		{
 			navigator.vibrate(200);
+
 			disableUI();
 
+			location.href = resultData;
+
+			/*
 			try {
 				url = new URL(resultData);
 
-				location.href = resultData;
 
-				/*
+				url = new URL(resultData);
+
 				var linkToResult = document.createElement("a");
 				linkToResult.href = url;
 				linkToResult.innerText = resultData;
@@ -94,7 +104,6 @@ $(function(){
 
 				resultSearchGo.href = url;
 				resultSearchGo.innerText = "Abrir";
-				*/
 			} catch (e) {
 				resultContainer.innerText = resultData;
 
@@ -103,24 +112,29 @@ $(function(){
 			}
 
 			resultDialog.showModal();
-		} else {
-			// if not found, retry
-			scanCode();
+			*/
 		}
+		// if not found, retry
+		else
+			scanCode();
 	}
 
-	function disableUI () {
+	function disableUI()
+	{
 		flipCameraButton.disabled = true;
 		loadingElement.style.display = "none";
 	}
 
 	// init video stream
 	var currentDeviceId;
-	function initVideoStream () {
+
+	function initVideoStream()
+	{
 		var config = {
 			audio: false,
 			video: {}
 		};
+
 		config.video = currentDeviceId ? {deviceId: currentDeviceId} : {facingMode: "environment"};
 
 		stopStream();
@@ -129,12 +143,14 @@ $(function(){
 			document.getElementById("about").style.display = "none";
 
 			video.srcObject = stream;
-			video.oncanplay = function() {
+			video.oncanplay = function()
+			{
 				flipCameraButton.disabled = false;
 				calculateSquare();
 				scanCode();
 			};
-		}).catch(function (error) {
+		}).catch(function(error)
+		{
 			alert(error.name + ": " + error.message);
 		});
 	}
