@@ -104,7 +104,6 @@ body {
 	margin-top: -59%;
 	margin-left: 48%;
 	width: 30%;
-	height: 459px;
-	//border: 1px solid black;
+	z-index: 1;
 	cursor: pointer;
 }

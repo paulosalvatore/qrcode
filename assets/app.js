@@ -216,8 +216,13 @@ $(function(){
 
 		initVideoStream();
 	});
-});
 
+	$(window).resize(function(){
+		var iniciarCameraJ = $("#iniciarCamera");
+		console.log(1);
+		iniciarCameraJ.css("height", iniciarCameraJ.css("width"));
+	}).resize();
+});
 
 // listen for resize event
 (function(){
