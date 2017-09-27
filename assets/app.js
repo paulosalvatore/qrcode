@@ -14,6 +14,7 @@ $(function(){
 	const video = document.getElementById("camera");
 	const overlay = document.getElementById("snapshotLimitOverlay");
 	const flipCameraButton = document.getElementById("flipCamera");
+	flipCameraButtonJ = $("#flipCamera");
 	const loadingElement = document.getElementById("loading");
 	const resultContainer = document.getElementById("result");
 	const resultDialog = document.querySelector("dialog");
@@ -24,6 +25,7 @@ $(function(){
 	resultDialog.querySelector("button.continue").addEventListener("click", function() {
 		resultDialog.close();
 		resultContainer.innerText = "";
+		flipCameraButtonJ.show();
 		flipCameraButton.disabled = false;
 		scanCode(true);
 	});
@@ -121,6 +123,7 @@ $(function(){
 
 	function disableUI()
 	{
+		flipCameraButtonJ.hide();
 		flipCameraButton.disabled = true;
 		loadingElement.style.display = "none";
 	}
@@ -145,6 +148,7 @@ $(function(){
 			video.srcObject = stream;
 			video.oncanplay = function()
 			{
+				flipCameraButtonJ.show();
 				flipCameraButton.disabled = false;
 				calculateSquare();
 				scanCode();
@@ -175,9 +179,6 @@ $(function(){
 
 		if (devices.length > 1)
 		{
-			// add a flip camera button
-			flipCameraButton.style.display = "block";
-
 			currentDeviceId = devices[0].deviceId; // no way to know current MediaStream's device id so arbitrarily choose the first
 
 			flipCameraButton.addEventListener("click", function(){
@@ -198,7 +199,12 @@ $(function(){
 		}
 	});
 
+	var videoIniciado = false;
+
 	document.addEventListener("visibilitychange", function(){
+		if (!videoIniciado)
+			return;
+
 		if (document.hidden)
 			stopStream();
 		else
@@ -206,6 +212,8 @@ $(function(){
 	});
 
 	$("#iniciarCamera").click(function(){
+		videoIniciado = true;
+
 		initVideoStream();
 	});
 });

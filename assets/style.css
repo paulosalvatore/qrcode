@@ -73,7 +73,7 @@ body {
 	z-index: 10;
 }
 
-#flipCamera, #iniciarCamera {
+#flipCamera/*, #iniciarCamera*/ {
 	top: 5vmin;
 	position: absolute;
 	background-color: #eee;
@@ -84,9 +84,11 @@ body {
 	right: 5vmin;
 }
 
+/*
 #iniciarCamera {
 	left: 5vmin;
 }
+*/
 
 #about {
 	background-color: white;
@@ -95,4 +97,14 @@ body {
 
 #about h4 {
 	margin-top: 0;
+}
+
+.link {
+	position: absolute;
+	margin-top: -59%;
+	margin-left: 48%;
+	width: 30%;
+	height: 459px;
+	//border: 1px solid black;
+	cursor: pointer;
 }
