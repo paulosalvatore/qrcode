@@ -101,9 +101,9 @@ body {
 
 .link {
 	position: absolute;
-	margin-top: -59%;
+	margin-top: -104%;
 	margin-left: 48%;
-	width: 30%;
+	width: 47%;
 	z-index: 1;
 	cursor: pointer;
 }

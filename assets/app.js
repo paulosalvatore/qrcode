@@ -131,6 +131,8 @@ $(function(){
 	// init video stream
 	var currentDeviceId;
 
+	var inicial = true;
+
 	function initVideoStream()
 	{
 		var config = {
@@ -153,9 +155,25 @@ $(function(){
 				calculateSquare();
 				scanCode();
 			};
+
+			if (inicial)
+			{
+				setTimeout(function(){
+					flipCameraButtonJ.click();
+					inicial = false;
+				}, 100);
+			}
+
 		}).catch(function(error)
 		{
-			alert(error.name + ": " + error.message);
+			flipCameraButtonJ.show();
+			flipCameraButton.disabled = false;
+
+			if (inicial)
+			{
+				flipCameraButtonJ.click();
+				inicial = false;
+			}
 		});
 	}
 
@@ -215,12 +233,17 @@ $(function(){
 		videoIniciado = true;
 
 		initVideoStream();
+
+		flipCameraButtonJ.click();
 	});
 
 	$(window).resize(function(){
 		var iniciarCameraJ = $("#iniciarCamera");
-		console.log(1);
-		iniciarCameraJ.css("height", iniciarCameraJ.css("width"));
+		var alturaPorcentagem = parseInt(iniciarCameraJ.data("altura")) / 100;
+		var larguraBody = parseInt($("body").css("height").split("px").join(""));
+		var altura = alturaPorcentagem * larguraBody;
+
+		iniciarCameraJ.css("height", altura);
 	}).resize();
 });
 
